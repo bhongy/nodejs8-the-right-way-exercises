@@ -1,0 +1,10 @@
+{
+  "name": "nodejs8-the-right-way-exercises",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Thanik Bhongbhibhat <thanikb@pinterest.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^23.2.0"
+  }
+}
