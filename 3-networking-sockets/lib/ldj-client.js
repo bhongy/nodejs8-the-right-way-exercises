@@ -25,7 +25,12 @@ class LDJClient extends EventEmitter {
   constructor(stream) {
     super();
     this.buffer = '';
-    stream.on('data', this.handleData.bind(this));
+
+    this.handleData = this.handleData.bind(this);
+    this.handleClose = this.handleClose.bind(this, stream);
+
+    stream.on('data', this.handleData);
+    stream.on('close', this.handleClose);
   }
 
   handleData(data) {
@@ -34,6 +39,12 @@ class LDJClient extends EventEmitter {
     messages.forEach(msg => {
       this.emit('message', msg);
     });
+  }
+
+  handleClose(stream) {
+    stream.removeListener('data', this.handleData);
+    stream.removeListener('close', this.handleClose);
+    this.emit('close');
   }
 }
 
