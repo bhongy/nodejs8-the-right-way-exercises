@@ -12,6 +12,14 @@ describe('parseRDF', () => {
 
   it('parses RDF content', () => {
     const book = parseRDF(rdf);
-    expect(book).toEqual({});
+    expect(book).toEqual({
+      id: 132,
+      title: 'The Art of War',
+      authors: ['Giles, Lionel', 'Sunzi, active 6th century B.C.'],
+      subjects: [
+        'Military art and science -- Early works to 1800',
+        'War -- Early works to 1800',
+      ],
+    });
   });
 });
