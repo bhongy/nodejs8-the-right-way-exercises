@@ -22,8 +22,7 @@ program
     'generate the URL for the options and path (default path is "/")'
   )
   .action((path = '/') => {
-    const { host, port, index, type } = program;
-    console.log(fullUrl({ host, port, index, type, path }));
+    console.log(fullUrl(path));
   });
 
 program.parse(process.argv);
