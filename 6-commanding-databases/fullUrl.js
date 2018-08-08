@@ -1,19 +1,20 @@
 'use strict';
 
 const program = require('commander');
-const { join } = require('path');
+const path = require('path');
 const url = require('url');
 
-function fullUrl(path = '') {
+function fullUrl(requestPath = '') {
+  const { pathname, query } = url.parse(requestPath, true);
   const { host, port, index, type } = program;
-  const segments = [index, type, path].filter(Boolean);
-  const pathname = join(...segments);
+  const segments = [index, type, pathname].filter(Boolean);
 
   return url.format({
     protocol: 'http',
     hostname: host,
     port,
-    pathname,
+    pathname: path.join(...segments),
+    query,
   });
 }
 

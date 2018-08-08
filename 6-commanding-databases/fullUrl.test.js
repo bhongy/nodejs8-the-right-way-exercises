@@ -41,4 +41,17 @@ describe('fullUrl', () => {
       'http://google.com:8080/index/book/the-lord-of-the-rings'
     );
   });
+
+  it('maintains querystring in the path', () => {
+    Object.assign(program, {
+      host: 'google.com',
+      port: 8080,
+      index: 'index',
+      type: 'book',
+    });
+
+    expect(fullUrl('star-wars?title=a-new-hope&a&b')).toBe(
+      'http://google.com:8080/index/book/star-wars?title=a-new-hope&a=&b='
+    );
+  });
 });
