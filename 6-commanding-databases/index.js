@@ -1,6 +1,6 @@
 'use strict';
 
-// const fs = require('fs');
+const fs = require('fs');
 const request = require('request');
 const program = require('commander');
 const pkg = require('../package.json');
@@ -74,6 +74,35 @@ program
       json: program.json,
     };
     request.get(options, handleResponse);
+  });
+
+program
+  .command('bulk <file>')
+  .description('read and perform bulk options from the specified file')
+  .action(file => {
+    fs.stat(file, (err, stats) => {
+      if (err) {
+        if (program.json) {
+          console.log(JSON.stringify(err));
+          return;
+        }
+        throw err;
+      }
+
+      const readStream = fs.createReadStream(file);
+      const req = request.post({
+        url: fullUrl('_bulk'),
+        json: true,
+        headers: {
+          // content-length is important for streaming
+          'content-length': stats.size,
+          'content-type': 'application/json',
+        },
+      });
+
+      readStream.pipe(req);
+      req.pipe(process.stdout);
+    });
   });
 
 program.parse(process.argv);
