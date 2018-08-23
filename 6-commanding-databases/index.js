@@ -1,5 +1,6 @@
 'use strict';
 
+const assert = require('assert');
 const fs = require('fs');
 const request = require('request');
 const program = require('commander');
@@ -124,6 +125,31 @@ program
       qs,
     };
     request(options, handleResponse);
+  });
+
+program
+  .command('delete <id>')
+  .description('delete a document from an index')
+  .action(id => {
+    assert.equal(
+      typeof program.index,
+      'string',
+      'index option must be provided'
+    );
+    const options = { url: fullUrl(id) };
+    request.del(options, handleResponse);
+  });
+
+program
+  .command('put <id>')
+  .description('create a new document')
+  .action(id => {
+    const req = request.put({
+      url: fullUrl(id),
+      json: true,
+      headers: { 'content-type': 'application/json' },
+    });
+    process.stdin.pipe(req).pipe(process.stdout);
   });
 
 program.parse(process.argv);
