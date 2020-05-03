@@ -5,14 +5,14 @@
   "author": "Thanik Bhongbhibhat <thanikb@pinterest.com>",
   "license": "MIT",
   "devDependencies": {
-    "jest": "^23.4.2"
+    "jest": "^25.5.4"
   },
   "dependencies": {
-    "cheerio": "^1.0.0-rc.2",
-    "commander": "^2.16.0",
+    "cheerio": "^0.22.0",
+    "commander": "^5.1.0",
     "node-dir": "^0.1.17",
-    "request": "^2.87.0",
-    "xml2js": "^0.4.19",
-    "zeromq": "^4.6.0"
+    "request": "^2.88.2",
+    "xml2js": "^0.4.23",
+    "zeromq": "^5.2.0'"
   }
 }
